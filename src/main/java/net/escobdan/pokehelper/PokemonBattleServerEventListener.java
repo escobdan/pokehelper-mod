@@ -34,10 +34,10 @@ public class PokemonBattleServerEventListener {
     public PokemonBattleServerEventListener() {
         // Subscribe to the battle started event in the constructor
         CobblemonEvents.BATTLE_STARTED_POST.subscribe(Priority.NORMAL, event -> {
-            CompletableFuture.runAsync(() -> {
+//            CompletableFuture.runAsync(() -> {
                 storedBattleEvent = event;
                 onBattleStartedPost();
-            });
+//            });
             return null;
         });
 
@@ -45,10 +45,10 @@ public class PokemonBattleServerEventListener {
         CobblemonEvents.POKEMON_SENT_PRE.subscribe(Priority.NORMAL, sentPostEvent -> {
 //            CompletableFuture.runAsync(() -> {
             if(battleStarted && firstPokemonSent) {
-                CompletableFuture.runAsync(() -> {
+//                CompletableFuture.runAsync(() -> {
                     System.out.println("sent pokemon: " + sentPostEvent.getPokemon().getDisplayName());
                     onBattleStartedPost();
-                });
+//                });
             }
             else if(battleStarted) {
                 firstPokemonSent = true;
@@ -83,8 +83,9 @@ public class PokemonBattleServerEventListener {
 //        Gson gson = new Gson();
 //        String dataJsonString = gson.toJson(dataJson);
 //        System.out.println(dataJsonString);
-        sendHttpPost(dataJson.toString());
-
+        CompletableFuture.runAsync(() -> {
+            sendHttpPost(dataJson.toString());
+        });
     }
 
     private JsonObject JsonCreator(BattleStartedPostEvent event) {
