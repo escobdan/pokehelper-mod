@@ -79,7 +79,7 @@ public class PokemonBattleServerEventListener {
         battleStarted = true;
 
         JsonObject dataJson = JsonCreator(storedBattleEvent);
-//        System.out.println(dataJson);
+        System.out.println(dataJson);
 //        Gson gson = new Gson();
 //        String dataJsonString = gson.toJson(dataJson);
 //        System.out.println(dataJsonString);
@@ -96,7 +96,6 @@ public class PokemonBattleServerEventListener {
             // Initialize Pokemon array
             JsonArray pokemonArray = new JsonArray();
             actorJson.add("pokemon", pokemonArray);
-            System.out.println("current actor pokemon list: " + battleActor.getPokemonList());
             for(BattlePokemon battlePokemon : battleActor.getPokemonList()) {
                 // First Pokemon in list will always be the one in battle
                 Pokemon pokemon = battlePokemon.getEffectedPokemon();
