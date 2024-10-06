@@ -8,17 +8,9 @@ import com.cobblemon.mod.common.api.moves.Move;
 import com.cobblemon.mod.common.api.moves.MoveSet;
 import com.cobblemon.mod.common.api.types.ElementalType;
 import com.cobblemon.mod.common.battles.pokemon.BattlePokemon;
-import com.cobblemon.mod.common.platform.events.ServerPlayerEvent;
 import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.google.gson.JsonArray;
-import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.entity.player.PlayerEntity;
 import com.google.gson.JsonObject;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.dedicated.DedicatedServer;
-import net.minecraft.server.dedicated.MinecraftDedicatedServer;
-import net.minecraft.server.world.ServerWorld;
 
 //HTTP imports
 import java.io.OutputStreamWriter;
@@ -80,9 +72,6 @@ public class PokemonBattleServerEventListener {
 
         JsonObject dataJson = JsonCreator(storedBattleEvent);
         System.out.println(dataJson);
-//        Gson gson = new Gson();
-//        String dataJsonString = gson.toJson(dataJson);
-//        System.out.println(dataJsonString);
         CompletableFuture.runAsync(() -> {
             sendHttpPost(dataJson.toString());
         });
@@ -142,8 +131,8 @@ public class PokemonBattleServerEventListener {
 
     private void sendHttpPost(String json) {
         System.out.println("Setting up connection and sending request");
-        String urlString = "https://escobdan1.pythonanywhere.com/battle-update";
-//        String urlString = "http://127.0.0.1:5000/battle-update";
+//        String urlString = "https://escobdan1.pythonanywhere.com/battle-update";
+        String urlString = "http://127.0.0.1:5000/battle-update";
 //        String urlString = "\thttps://webhook.site/ea4b5b11-197e-4304-afda-9e78b9729fe6";
         System.out.println("sending to webhook");
         try {
@@ -166,21 +155,6 @@ public class PokemonBattleServerEventListener {
         } catch (Exception e) {
             e.printStackTrace();
         }
-//            try (DataOutputStream dataOutputStream = new DataOutputStream(connection.getOutputStream())) {
-//                dataOutputStream.writeBytes(json);
-//                dataOutputStream.flush();
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//                throw new RuntimeException(e);
-//            }
-        // Get response
-//            int responseCode = connection.getResponseCode();
-//            System.out.println("Response Code: " + responseCode);
-//        }
-//        catch (Exception e) {
-//            e.printStackTrace();
-//            throw new RuntimeException(e);
-//        }
 
     }
 }
